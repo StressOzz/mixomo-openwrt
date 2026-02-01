@@ -142,7 +142,7 @@ cleanup_system() {
 
 main() {
 	clear
-    log_done "Скрипт удаления Mixomo OpenWRT от Iinternet Helper"
+    log_done "Скрипт удаления Mixomo OpenWRT от Internet Helper"
     echo ""
     
     log_step "[1/4] Удаление Mihomo"

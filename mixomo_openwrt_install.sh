@@ -1342,7 +1342,7 @@ finalize_install() {
 
 main() {
 	clear
-    log_done "Скрипт установки Mixomo OpenWRT от Iinternet Helper"
+    log_done "Скрипт установки Mixomo OpenWRT от Internet Helper"
 	echo ""
 	
     # --- ШАГ 2: Установка и настройка Mihomo ---
@@ -1366,7 +1366,8 @@ main() {
 	echo "Теперь:"
 	echo "1. Выйдите из LuCI (страница роутера) и войдите снова."
 	echo "2. Во вкладке «Services»\«Сервисы» - «Mihomo» настройте конфигурацию."
-	echo "Можете использовать этот генератор конфигураций - https://spatiumstas.github.io/web4core/"
+	echo "Совет: для этого можете использовать этот генератор конфигураций"
+	echo "https://spatiumstas.github.io/web4core/"
 	echo "3. Во вкладке «Services»\«Сервисы» - «MagiTrickle» создайте список нужных адресов."
 	echo "4. Наслаждайтесь интернетом :)"
 	echo ""
