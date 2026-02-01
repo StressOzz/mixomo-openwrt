@@ -1254,15 +1254,24 @@ install_magitrickle() {
     echo "2) Мод от LarinIvan (https://github.com/LarinIvan/MagiTrickle_Mod/)"
     printf "-> "
     read -r CHOICE
-
+    
     echo "--> Подготовка к установке MagiTrickle..."
+    
+    local CONFIG_PATH="/etc/magitrickle/state/config.yaml"
+    local BACKUP_PATH="/tmp/magitrickle_config_backup.yaml"
+    
+    if [ -f "$CONFIG_PATH" ]; then
+        log_info "Создание бэкапа конфига..."
+        cp "$CONFIG_PATH" "$BACKUP_PATH"
+    fi
+    
     if opkg list-installed magitrickle_mod >/dev/null 2>&1; then
         opkg remove magitrickle_mod >/dev/null 2>&1
     fi
     if opkg list-installed magitrickle >/dev/null 2>&1; then
         opkg remove magitrickle >/dev/null 2>&1
     fi
-
+    
     case "$CHOICE" in
         1)
             ARCH_SYS=$(grep "OPENWRT_ARCH" /etc/os-release | awk -F '"' '{print $2}')
@@ -1274,10 +1283,10 @@ install_magitrickle() {
             wget -O "$IPK" "$URL" || { log_error "Ошибка скачивания оригинального MagiTrickle"; return 1; }
             opkg install "$IPK" || return 1
             rm -f "$IPK"
-			echo "--> Включение автозапуска MagiTrickle..."
-            /etc/init.d/magitrickle enable
-			echo "--> Запуск MagiTrickle..."
-            /etc/init.d/magitrickle start
+            echo "--> Включение автозапуска MagiTrickle..."
+            /etc/init.d/magitrickle enable >/dev/null 2>&1
+            echo "--> Запуск MagiTrickle..."
+            /etc/init.d/magitrickle start >/dev/null 2>&1
             ;;
         2)
             log_info "Установка MagiTrickle_Mod..."
@@ -1288,19 +1297,90 @@ install_magitrickle() {
             return 1
             ;;
     esac
-
+    
+    compare_versions() {
+        local v1="$1"
+        local v2="$2"
+        
+        local IFS='.'
+        set -- $v1
+        local v1_major="$1" v1_minor="$2" v1_patch="$3"
+        set -- $v2
+        local v2_major="$1" v2_minor="$2" v2_patch="$3"
+        
+        v1_major="${v1_major:-0}"
+        v1_minor="${v1_minor:-0}"
+        v1_patch="${v1_patch:-0}"
+        v2_major="${v2_major:-0}"
+        v2_minor="${v2_minor:-0}"
+        v2_patch="${v2_patch:-0}"
+        
+        if [ "$v1_major" -gt "$v2_major" ]; then
+            return 1
+        elif [ "$v1_major" -lt "$v2_major" ]; then
+            return 2
+        fi
+        
+        if [ "$v1_minor" -gt "$v2_minor" ]; then
+            return 1
+        elif [ "$v1_minor" -lt "$v2_minor" ]; then
+            return 2
+        fi
+        
+        if [ "$v1_patch" -gt "$v2_patch" ]; then
+            return 1
+        elif [ "$v1_patch" -lt "$v2_patch" ]; then
+            return 2
+        fi
+        
+        return 0
+    }
+    
+    if [ -f "$BACKUP_PATH" ] && [ -f "$CONFIG_PATH" ]; then
+        echo "--> Проверка версии конфигурации..."
+        
+        OLD_VERSION=$(grep "^configVersion:" "$BACKUP_PATH" | awk '{print $2}' | tr -d ' ')
+        NEW_VERSION=$(grep "^configVersion:" "$CONFIG_PATH" | awk '{print $2}' | tr -d ' ')
+        
+        if [ -z "$OLD_VERSION" ] || [ -z "$NEW_VERSION" ]; then
+            log_warn "Не удалось определить версию конфигурации. Бэкап сохранен рядом."
+            cp "$BACKUP_PATH" "${CONFIG_PATH}.backup"
+            rm -f "$BACKUP_PATH"
+        else
+            compare_versions "$OLD_VERSION" "$NEW_VERSION"
+            local result=$?
+            
+            case $result in
+                0)  echo "--> Версии конфигурации совпадают ($OLD_VERSION). Восстанавление..."
+                    cp "$BACKUP_PATH" "$CONFIG_PATH"
+                    rm -f "$BACKUP_PATH"
+                    ;;
+                1)  log_warn "Версия старой конфигурации ($OLD_VERSION) выше новой ($NEW_VERSION)! Бэкап сохранен рядом."
+                    cp "$BACKUP_PATH" "${CONFIG_PATH}.backup"
+                    rm -f "$BACKUP_PATH"
+                    ;;
+                2)  log_info "Новая версия конфигурации ($NEW_VERSION) выше старой ($OLD_VERSION). Бэкап сохранен рядом."
+                    cp "$BACKUP_PATH" "${CONFIG_PATH}.backup"
+                    rm -f "$BACKUP_PATH"
+                    ;;
+            esac
+        fi
+    elif [ -f "$BACKUP_PATH" ]; then
+        log_warn "Новая конфигурация не найдена. Восстанавление из бэкапа..."
+        mkdir -p "$(dirname "$CONFIG_PATH")"
+        cp "$BACKUP_PATH" "$CONFIG_PATH"
+        rm -f "$BACKUP_PATH"
+    fi
+    
     echo "--> Создание страницы MagiTrickle в LuCI..."
     mkdir -p /www/luci-static/resources/view/magitrickle
-
 cat << 'EOF' > /www/luci-static/resources/view/magitrickle/magitrickle.js
 'use strict';
 'require view';
-
 return view.extend({
     handleSaveApply: null,
     handleSave: null,
     handleReset: null,
-
     render: function() {
         var ip = window.location.hostname;
         var url = 'http://' + ip + ':8080';
@@ -1313,7 +1393,6 @@ return view.extend({
     }
 });
 EOF
-
 cat << 'EOF' > /usr/share/luci/menu.d/luci-app-magitrickle.json
 {
     "admin/services/magitrickle": {
@@ -1345,17 +1424,14 @@ main() {
     log_done "Скрипт установки Mixomo OpenWRT от Internet Helper"
 	echo ""
 	
-    # --- ШАГ 2: Установка и настройка Mihomo ---
     log_step "[1/3] Установка Mihomo"
     install_mihomo || step_fail
 	echo ""
 	
-    # --- ШАГ 3: Установка Hev-Socks5-Tunnel ---
     log_step "[2/3] Установка Hev-Socks5-Tunnel"
     install_hev_tunnel || step_fail
 	echo ""
 	
-    # --- ШАГ 4: Установка MagiTrickle ---
     log_step "[3/3] Установка MagiTrickle"
     install_magitrickle || step_fail
     finalize_install || step_fail
@@ -1373,5 +1449,4 @@ main() {
 	echo ""
 }
 
-# === ЗАПУСК ===
 main

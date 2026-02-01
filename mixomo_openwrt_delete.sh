@@ -129,7 +129,7 @@ remove_dependencies() {
     log_info "Очистка зависимостей..."
     if is_pkg_installed kmod-nft-tproxy; then
         opkg remove kmod-nft-tproxy > /dev/null 2>&1
-        log_done "Зависимость kmod-nft-tproxy удалена."
+        echo "--> kmod-nft-tproxy удален."
     fi
 }
 
