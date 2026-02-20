@@ -153,7 +153,7 @@ proxy-groups:
     icon: https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f310.svg
     proxies:
       - "VLESS"
-      - "WARP через VLESS""
+      - "WARP через VLESS"
 
 rule-providers:
 
