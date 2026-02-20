@@ -1249,7 +1249,7 @@ EOF
 
 install_magitrickle() {
     echo "Выберите версию MagiTrickle для установки:"
-    echo "1) Оригинал v0.5.0 (https://magitrickle.dev/docs/welcome/)"
+    echo "1) Оригинал v0.5.2 (https://magitrickle.dev/docs/welcome/)"
     echo "2) Мод от LarinIvan (https://github.com/LarinIvan/MagiTrickle_Mod/)"
     printf "-> "
     read -r CHOICE
@@ -1275,8 +1275,8 @@ install_magitrickle() {
             ARCH_SYS=$(grep "OPENWRT_ARCH" /etc/os-release | awk -F '"' '{print $2}')
             [ -n "$ARCH_SYS" ] || { log_error "Не удалось определить архитектуру OpenWrt"; return 1; }
             echo "--> Архитектура: $ARCH_SYS"
-            IPK="magitrickle_0.5.0-1_openwrt_${ARCH_SYS}.ipk"
-            URL="https://gitlab.com/api/v4/projects/69165954/packages/generic/magitrickle/0.5.0/$IPK"
+            IPK="magitrickle_0.5.2-2_openwrt_${ARCH_SYS}.ipk"
+            URL="https://gitlab.com/api/v4/projects/69165954/packages/generic/magitrickle/0.5.2/$IPK"
             cd /tmp
             wget -O "$IPK" "$URL" || { log_error "Ошибка скачивания оригинального MagiTrickle"; return 1; }
             opkg install "$IPK" || return 1
