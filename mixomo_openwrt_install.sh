@@ -135,7 +135,7 @@ install_mihomo() {
         step_fail
     fi
 
-    if ! opkg install kmod-nft-tproxy kmod-tun curl libcurl4 ca-bundle wget-ssl ca-certificates > "$PKG_LOG" 2>&1; then
+    if ! opkg install kmod-nft-tproxy kmod-tun curl libcurl4 ca-bundle ca-certificates > "$PKG_LOG" 2>&1; then
         log_error "Ошибка при установке пакетов!"
         
         if grep -iq "No space left on device" "$PKG_LOG" || grep -iq "write error" "$PKG_LOG"; then
