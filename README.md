@@ -23,7 +23,7 @@
 
 # Установка Mixomo
 
-- в **SSH** Запустите скрипт:
+- в **SSH** запустите скрипт:
 ```
 sh <(wget -O - https://raw.githubusercontent.com/StressOzz/mixomo-openwrt/refs/heads/main/mixomo_openwrt_install.sh)
 ```
@@ -77,8 +77,8 @@ sh <(wget -O - https://raw.githubusercontent.com/StressOzz/mixomo-openwrt/refs/h
 
 # Настраиваем Magitrickle
 
-- Зайдите на роутер в **LuCI**
-- Вкладка `Services` → `Magitrickle`
+- Зайдите на роутер в **LuCI**, вкладка `Services` → `Magitrickle`
+- Или зайдите в браузере http://192.168.1.1:8080/
 - Удалите `Example` <img width="371" height="401" alt="Image" src="https://github.com/user-attachments/assets/0f1c5f77-c72e-4790-8a22-d9277cfce934" />
 - Нажмите `Сохранить изменения` <img width="45" height="111" alt="Image" src="https://github.com/user-attachments/assets/510dce31-20aa-44a1-a92d-6ed2c18fc5e0" />
 
@@ -106,15 +106,14 @@ sh <(wget -O - https://raw.githubusercontent.com/StressOzz/mixomo-openwrt/refs/h
 
 - Если не работает, выполните `Остановить` и `Запустить` **Mihomo**
 
-
 ---
 
 Можете генерировать разные WARP и пробовать, т.к. в По умолчанию не будет работать `GeoBlock` и ещё всякое...
 
-- Для смены WARP:
-Генерируем WARP
-Генерируем конфигурацию
-Настраиваем Mihomo (останавливаем, удаляем, вставляем, сохраняем и запускаем)
+Для смены WARP:
+- Генерируем WARP
+- Генерируем конфигурацию
+- Настраиваем Mihomo (останавливаем, удаляем, вставляем, сохраняем и запускаем)
 
 ---
 
@@ -131,7 +130,3 @@ sh <(wget -O - https://raw.githubusercontent.com/StressOzz/mixomo-openwrt/refs/h
 ## Я не автор и не разработчик !
 ## Я просто написал эту инструкцию !
 ## Вопросы по работе данного пакета - не ко мне ! )))
-
----
-
-и да.... скрипта не будет, который это всё делает одной кнопкой )))))
