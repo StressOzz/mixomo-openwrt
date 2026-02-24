@@ -21,13 +21,17 @@
 
 ---
 
-# Установка Mixomo
+# Установка и удаление Mixomo
 
-- в **SSH** запустите скрипт:
+- для установки в **SSH** запустите скрипт:
 ```
 sh <(wget -O - https://raw.githubusercontent.com/StressOzz/mixomo-openwrt/refs/heads/main/mixomo_openwrt_install.sh)
 ```
 
+- для удлаения в **SSH** запустите скрипт:
+```
+sh <(wget -O - https://raw.githubusercontent.com/StressOzz/mixomo-openwrt/refs/heads/main/mixomo_openwrt_delete.sh)
+```
 ---
 
 - Выберите 1
