@@ -73,7 +73,14 @@ sh <(wget -O - https://raw.githubusercontent.com/StressOzz/mixomo-openwrt/refs/h
 
 ---
 
-# Добавление списков вручную
+# Добавление списков
+
+Скрипт сам прописывает списки, но если этого не произошло, то в **SSH** выполните
+```
+wget -O /etc/magitrickle/state/config.yaml "https://raw.githubusercontent.com/StressOzz/Use_WARP_on_OpenWRT/refs/heads/main/files/MagiTrickle/config.yaml"; /etc/init.d/magitrickle enable >/dev/null 2>&1; /etc/init.d/magitrickle reload  >/dev/null 2>&1; /etc/init.d/magitrickle start >/dev/null 2>&1; /etc/init.d/magitrickle restart >/dev/null 2>&1
+```
+
+## Добавление списков вручную
 
 - Переходим по ссылке https://github.com/StressOzz/Use_WARP_on_OpenWRT/blob/main/files/MagiTrickle/config_from_internet_helper.mtrickle
 - Скачиваем файл `config_from_internet_helper.mtrickle`<img width="197" height="155" alt="Image" src="https://github.com/user-attachments/assets/e07b23d3-f7cb-4fb8-a272-f46199cdd990" />
@@ -81,7 +88,7 @@ sh <(wget -O - https://raw.githubusercontent.com/StressOzz/mixomo-openwrt/refs/h
 - Удалите `Example` <img width="371" height="401" alt="Image" src="https://github.com/user-attachments/assets/0f1c5f77-c72e-4790-8a22-d9277cfce934" />
 - Нажмите на Импортировать конфиг <img width="147" height="173" alt="Image" src="https://github.com/user-attachments/assets/70f92a9e-85cb-4fe8-b5ed-b2cb6c6c9a3e" />
 - Выбираете `config_from_internet_helper.mtrickle`
-- Выбираете `Все` и нажмите `Импортировать` 
+- Выбираете `Все` или то, что Вам нужно и нажмите `Импортировать` 
 
 <img width="327" height="1105" alt="Image" src="https://github.com/user-attachments/assets/3f6e50dc-5f97-4f6c-abbb-2e7369398324" />
 
