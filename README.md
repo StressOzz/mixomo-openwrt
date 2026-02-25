@@ -20,14 +20,14 @@
 sh <(wget -O - https://raw.githubusercontent.com/StressOzz/mixomo-openwrt/refs/heads/main/mixomo_openwrt_install.sh)
 ```
 
-- для удлаения в **SSH** запустите скрипт:
+- для удаления в **SSH** запустите скрипт:
 ```
 sh <(wget -O - https://raw.githubusercontent.com/StressOzz/mixomo-openwrt/refs/heads/main/mixomo_openwrt_delete.sh)
 ```
 
 ---
 
-# Генерируем конфигурацию
+# Генерируем конфигурацию 
 
 - Зайдите на сайт https://spatiumstas.github.io/web4core/ 
 
@@ -37,7 +37,7 @@ sh <(wget -O - https://raw.githubusercontent.com/StressOzz/mixomo-openwrt/refs/h
 
 - Нажмите на <img width="100" height="91" alt="Image" src="https://github.com/user-attachments/assets/f583ff2a-7b49-4726-baea-3f4dd03a5339" />
 
-- Выберите файл `WARP*.conf`
+- Выбирите файл `WARP*.conf`
 - Нажмите <img width="90" height="101" alt="Image" src="https://github.com/user-attachments/assets/ed1f3143-1a2e-460d-9e27-cbf8d69b3ae4" />
 
 - Нажмите на  <img width="41" height="150" alt="Image" src="https://github.com/user-attachments/assets/12660858-7a96-4fa3-b0f3-c3bc6bad6a3c" /> это скопирует результат
