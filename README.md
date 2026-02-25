@@ -1,5 +1,7 @@
 Сделал форк на [Internet-Helper/mixomo-openwrt](https://github.com/Internet-Helper/mixomo-openwrt)
 
+## https://github.com/StressOzz/Use_WARP_on_OpenWRT
+
 ---
 
 # Генерируем WARP
@@ -74,6 +76,24 @@ sh <(wget -O - https://raw.githubusercontent.com/StressOzz/mixomo-openwrt/refs/h
 - Зайдите на роутер в **LuCI**, вкладка `Services` → `Magitrickle` или в браузере http://192.168.1.1:8080/
 - Тут можете ВКЛ или ВЫКЛ списки, которые пойдут через WARP
 - После ВКЛ или ВЫКЛ списка(ов) - нужно нажать на <img width="41" height="105" alt="{BA726D0E-69AF-4E81-8BE5-88BC332DADF1}" src="https://github.com/user-attachments/assets/34785256-cafc-46e6-bae7-be18b50330ce" />
+
+---
+
+# Добавление списков вручную
+
+- Переходим по ссылке https://github.com/StressOzz/Use_WARP_on_OpenWRT/blob/main/files/MagiTrickle/config_from_internet_helper.mtrickle
+- Скачиваем файл `config_from_internet_helper.mtrickle`<img width="197" height="155" alt="Image" src="https://github.com/user-attachments/assets/e07b23d3-f7cb-4fb8-a272-f46199cdd990" />
+- Зайдите на роутер в **LuCI**
+- Вкладка `Services` → `Magitrickle`
+- Удалите `Example` <img width="371" height="401" alt="Image" src="https://github.com/user-attachments/assets/0f1c5f77-c72e-4790-8a22-d9277cfce934" />
+- Нажмите `Сохранить изменения` <img width="45" height="111" alt="Image" src="https://github.com/user-attachments/assets/510dce31-20aa-44a1-a92d-6ed2c18fc5e0" />
+- Нажмите на Импортировать конфиг <img width="147" height="173" alt="Image" src="https://github.com/user-attachments/assets/70f92a9e-85cb-4fe8-b5ed-b2cb6c6c9a3e" />
+- Выбираете `config_from_internet_helper.mtrickle`
+- Выбираете `Все` и нажмите `Импортировать` 
+
+<img width="327" height="1105" alt="Image" src="https://github.com/user-attachments/assets/3f6e50dc-5f97-4f6c-abbb-2e7369398324" />
+
+- Нажмите `Сохранить изменения` <img width="45" height="111" alt="Image" src="https://github.com/user-attachments/assets/510dce31-20aa-44a1-a92d-6ed2c18fc5e0" />
 
 ---
 
