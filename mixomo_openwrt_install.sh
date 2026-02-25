@@ -134,7 +134,7 @@ install_mihomo() {
         step_fail
     fi
 
-    if ! opkg install kmod-nft-tproxy kmod-tun curl libcurl4 ca-bundle ca-certificates > "$PKG_LOG" 2>&1; then
+    if ! opkg install kmod-nft-tproxy kmod-tun curl libcurl4 ca-bundle ca-certificates > "$PKG_LOG" >/dev/null 2>&1; then
         log_error "Ошибка при установке пакетов!"
         
         if grep -iq "No space left on device" "$PKG_LOG" || grep -iq "write error" "$PKG_LOG"; then
@@ -181,7 +181,7 @@ install_mihomo() {
     log_info "Скачивание архива $FILENAME"
     echo "--> URL: $DOWNLOAD_URL"
 
-    if ! curl -Lf --retry 3 --retry-delay 2 "$DOWNLOAD_URL" -o "$TMP_FILE"; then
+    if ! curl -Lf --retry 3 --retry-delay 2 "$DOWNLOAD_URL" -o "$TMP_FILE" >/dev/null 2>&1; then
         log_error "Ошибка скачивания! Проверьте, существует ли файл $FILENAME в релизах."
         return 1
     fi
@@ -221,68 +221,7 @@ install_mihomo() {
 
     if [ "$WRITE_NEW_CONFIG" -eq 1 ]; then
         echo "--> Создание новой конфигурации /etc/mihomo/config.yaml..."
-        cat > "$CONFIG_FILE" <<EOF || return 1
-mode: rule
-ipv6: false
-mixed-port: 7890
-log-level: error
-allow-lan: false
-unified-delay: true
-tcp-concurrent: false
-find-process-mode: off
-external-controller: 0.0.0.0:9090
-external-ui: ./UI
-external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
-routing-mark: 2
-profile:
-  store-selected: true
-  store-fake-ip: true
-  tracing: true
-sniffer:
-  enable: true
-  force-dns-mapping: true
-  parse-pure-ip: true
-  sniff:
-    HTTP:
-      ports: [80]
-      override-destination: true
-    TLS:
-      ports: [443, 8443]
-    QUIC:
-      ports: [443, 8443]
-  skip-domain:
-    - Mijia Cloud
-    - +.lan
-    - +.local
-    - +.msftconnecttest.com
-    - +.msftncsi.com
-    - +.3gppnetwork.org
-    - +.openwrt.org
-    - +.vsean.net
-    - cudy.net
-
-dns:
-  enable: true
-  listen: 0.0.0.0:7880
-  ipv6: false
-  nameserver:
-    - https://dns.google/dns-query
-    - https://dns.quad9.net/dns-query
-    - https://dns.cloudflare.com/dns-query
-    - https://common.dot.dns.yandex.net/dns-query
-    - https://unfiltered.adguard-dns.com/dns-query
-
-proxies:
-  - name: Домашний интернет
-    type: direct
-
-proxy-groups:
-
-rule-providers:
-
-rules:
-  - MATCH,Домашний интернет
-EOF
+        > "$CONFIG_FILE"
     fi
 	
 	echo "--> Создание службы /etc/init.d/mihomo..."
@@ -1184,7 +1123,7 @@ EOF
 
 install_hev_tunnel() {
 	log_info "Установка hev-socks5-tunnel..."
-    opkg install hev-socks5-tunnel > /dev/null 2>&1
+    opkg install hev-socks5-tunnel >/dev/null 2>&1
 
     echo "--> Создание конфигурации /etc/hev-socks5-tunnel/main.yml..."
     mkdir -p /etc/hev-socks5-tunnel
@@ -1243,11 +1182,6 @@ EOF
 }
 
 install_magitrickle() {
-    echo "Выберите версию MagiTrickle для установки:"
-    echo "1) Оригинал v0.5.2 (https://magitrickle.dev/docs/welcome/)"
-    echo "2) Мод от LarinIvan (https://github.com/LarinIvan/MagiTrickle_Mod/)"
-    printf "-> "
-    read -r CHOICE
     
     echo "--> Подготовка к установке MagiTrickle..."
     
@@ -1264,32 +1198,27 @@ install_magitrickle() {
     if opkg list-installed magitrickle >/dev/null 2>&1; then
         opkg remove magitrickle >/dev/null 2>&1
     fi
-    
-    case "$CHOICE" in
-        1)
             ARCH_SYS=$(grep "OPENWRT_ARCH" /etc/os-release | awk -F '"' '{print $2}')
             [ -n "$ARCH_SYS" ] || { log_error "Не удалось определить архитектуру OpenWrt"; return 1; }
             echo "--> Архитектура: $ARCH_SYS"
             IPK="magitrickle_0.5.2-2_openwrt_${ARCH_SYS}.ipk"
             URL="https://gitlab.com/api/v4/projects/69165954/packages/generic/magitrickle/0.5.2/$IPK"
             cd /tmp
-            wget -O "$IPK" "$URL" || { log_error "Ошибка скачивания оригинального MagiTrickle"; return 1; }
-            opkg install "$IPK" || return 1
+			echo "--> Установка MagiTrickle..."
+            wget -q -O "$IPK" "$URL" || { log_error "Ошибка скачивания оригинального MagiTrickle"; return 1; }
+            opkg install "$IPK" >/dev/null 2>&1 || return 1
             rm -f "$IPK"
+			
+			
+wget -q -O /etc/magitrickle/state/config.yaml \
+"https://raw.githubusercontent.com/StressOzz/Use_WARP_on_OpenWRT/refs/heads/main/files/MagiTrickle/config.yaml"
+			
             echo "--> Включение автозапуска MagiTrickle..."
             /etc/init.d/magitrickle enable >/dev/null 2>&1
             echo "--> Запуск MagiTrickle..."
-            /etc/init.d/magitrickle start >/dev/null 2>&1
-            ;;
-        2)
-            log_info "Установка MagiTrickle_Mod..."
-            wget -O- https://raw.githubusercontent.com/LarinIvan/MagiTrickle_Mod/develop/add_repo.sh | sh || return 1
-            ;;
-        *)
-            log_error "Неверный выбор"
-            return 1
-            ;;
-    esac
+			/etc/init.d/magitrickle reload  >/dev/null 2>&1
+			/etc/init.d/magitrickle start >/dev/null 2>&1
+            /etc/init.d/magitrickle restart >/dev/null 2>&1
     
     compare_versions() {
         local v1="$1"
