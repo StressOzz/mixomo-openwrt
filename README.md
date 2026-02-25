@@ -1,11 +1,3 @@
-ССЫЛКИ:
-
-- https://github.com/Internet-Helper/mixomo-openwrt
-- https://github.com/Internet-Helper/mixomo-openwrt/blob/main/files/Советы.md
-- https://github.com/Internet-Helper/mixomo-openwrt/blob/main/files/MagiTrickle/MagiTrickle.md
-
----
-
 # Генерируем WARP
 
 Генерируем **WARP** в TГ боте - https://t.me/warp_generator_bot
