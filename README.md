@@ -1,3 +1,7 @@
+Сделал форк на [Internet-Helper/mixomo-openwrt](https://github.com/Internet-Helper/mixomo-openwrt)
+
+---
+
 # Генерируем WARP
 
 Генерируем **WARP** в TГ боте - https://t.me/warp_generator_bot
@@ -65,17 +69,15 @@ sh <(wget -O - https://raw.githubusercontent.com/StressOzz/mixomo-openwrt/refs/h
 
 ---
 
-# Настраиваем Magitrickle
+# Настраиваем списки в Magitrickle
 
-- Зайдите на роутер в **LuCI**, вкладка `Services` → `Magitrickle`
-- Или зайдите в браузере http://192.168.1.1:8080/
+- Зайдите на роутер в **LuCI**, вкладка `Services` → `Magitrickle` или в браузере http://192.168.1.1:8080/
 - Тут можете ВКЛ или ВЫКЛ списки, которые пойдут через WARP
-- После ВКЛ или ВЫКЛ спаиска(ов) нужно нажать на <img width="41" height="105" alt="{BA726D0E-69AF-4E81-8BE5-88BC332DADF1}" src="https://github.com/user-attachments/assets/34785256-cafc-46e6-bae7-be18b50330ce" />
-
+- После ВКЛ или ВЫКЛ списка(ов) - нужно нажать на <img width="41" height="105" alt="{BA726D0E-69AF-4E81-8BE5-88BC332DADF1}" src="https://github.com/user-attachments/assets/34785256-cafc-46e6-bae7-be18b50330ce" />
 
 ---
 
-Можете генерировать разные WARP и пробовать, т.к. в По умолчанию не будет работать `GeoBlock` и ещё всякое...
+Можете генерировать разные WARP и пробовать, т.к. в `По умолчанию` не будет работать `GeoBlock`...
 
 Для смены WARP:
 - Генерируем WARP
