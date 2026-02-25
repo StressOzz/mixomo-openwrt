@@ -1361,15 +1361,6 @@ main() {
 	
 	log_step "Установка Mixomo OpenWRT $SCRIPT_VERSION прошла успешно!"
 	echo ""
-	log_done "1. Выйдите из LuCI (страница роутера) и войдите снова"
-	echo ""
-	log_done "2. Нажмите на Службы или Services -> Mihomo -> Настройте конфигурацию"
-	log_done "Вам может помочь онлайн генератор -> https://spatiumstas.github.io/web4core/"
-	echo ""
-	log_done "3. Нажмите на Службы или Services -> MagiTrickle -> Создайте списки доменов и подсетей"
-	echo ""
-	log_done "4. Наслаждайтесь интернетом :)"
-	echo ""
 }
 
 main
