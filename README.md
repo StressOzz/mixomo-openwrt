@@ -77,19 +77,28 @@ sh <(wget -O - https://raw.githubusercontent.com/StressOzz/WARP_on_OpenWRT/main/
 
 # Добавление списков
 
-Скрипт сам прописывает списки, но если этого не произошло, то в **SSH** выполните
-```
-wget -O /etc/magitrickle/state/config.yaml "https://raw.githubusercontent.com/StressOzz/Use_WARP_on_OpenWRT/refs/heads/main/files/MagiTrickle/config.yaml"; /etc/init.d/magitrickle enable >/dev/null 2>&1; /etc/init.d/magitrickle reload  >/dev/null 2>&1; /etc/init.d/magitrickle start >/dev/null 2>&1; /etc/init.d/magitrickle restart >/dev/null 2>&1
-```
+При установке появится выбор списков для **Выбор списка для MagiTrickle**
+
+<img width="333" height="217" alt="{C30EFB5C-87D8-4334-9C9A-B40998D02FC9}" src="https://github.com/user-attachments/assets/b5a506c7-bdd9-4667-828a-59f411407a93" />
+
+- список ITDog Allow Domains:
+
+<img width="385" height="1049" alt="{779606AE-15D8-4A33-A89E-FAB5FF26E867}" src="https://github.com/user-attachments/assets/c536dfd1-0425-4c22-9622-6a80020d4747" />
+
+- список Default:
+
+<img width="383" height="485" alt="{CD9857EC-FD45-4052-97AE-6DE728CD2F08}" src="https://github.com/user-attachments/assets/c2a0e285-e15c-48c9-9671-16115410126a" />
+
+
 
 ## Добавление списков вручную
 
 - Переходим по ссылке 
-https://github.com/StressOzz/Use_WARP_on_OpenWRT/blob/main/files/MagiTrickle/config_from_internet_helper.mtrickle
-
-или
-
-https://github.com/StressOzz/WARP_on_OpenWRT/blob/main/files/MagiTrickle/AllowDomainsList.mtrickle
+  https://github.com/StressOzz/Use_WARP_on_OpenWRT/blob/main/files/MagiTrickle/config_from_internet_helper.mtrickle
+  
+  или
+  
+  https://github.com/StressOzz/WARP_on_OpenWRT/blob/main/files/MagiTrickle/AllowDomainsList.mtrickle
 - Скачиваем файл <img width="197" height="155" alt="Image" src="https://github.com/user-attachments/assets/e07b23d3-f7cb-4fb8-a272-f46199cdd990" />
 - Зайдите на роутер в **LuCI** → `Services` → `Magitrickle` или в браузере http://192.168.1.1:8080/
 - Удалите `Example` <img width="371" height="401" alt="Image" src="https://github.com/user-attachments/assets/0f1c5f77-c72e-4790-8a22-d9277cfce934" />
@@ -103,7 +112,7 @@ https://github.com/StressOzz/WARP_on_OpenWRT/blob/main/files/MagiTrickle/AllowDo
 
 ---
 
-Cписок из **ItDog Allow Domains** для **MagiTrickle**:
+Cписок из **IT Dog Allow Domains** для **MagiTrickle**:
 https://github.com/StressOzz/WARP_on_OpenWRT/blob/main/files/MagiTrickle/AllowDomainsList.mtrickle
 
 Так же скрипт для создания этого списка из **Allow Domains**:
