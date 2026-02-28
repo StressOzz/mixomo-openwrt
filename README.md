@@ -84,8 +84,13 @@ wget -O /etc/magitrickle/state/config.yaml "https://raw.githubusercontent.com/St
 
 ## Добавление списков вручную
 
-- Переходим по ссылке https://github.com/StressOzz/Use_WARP_on_OpenWRT/blob/main/files/MagiTrickle/config_from_internet_helper.mtrickle
-- Скачиваем файл `config_from_internet_helper.mtrickle`<img width="197" height="155" alt="Image" src="https://github.com/user-attachments/assets/e07b23d3-f7cb-4fb8-a272-f46199cdd990" />
+- Переходим по ссылке 
+https://github.com/StressOzz/Use_WARP_on_OpenWRT/blob/main/files/MagiTrickle/config_from_internet_helper.mtrickle
+
+или
+
+https://github.com/StressOzz/WARP_on_OpenWRT/blob/main/files/MagiTrickle/ItDogList.mtrickle
+- Скачиваем файл <img width="197" height="155" alt="Image" src="https://github.com/user-attachments/assets/e07b23d3-f7cb-4fb8-a272-f46199cdd990" />
 - Зайдите на роутер в **LuCI** → `Services` → `Magitrickle` или в браузере http://192.168.1.1:8080/
 - Удалите `Example` <img width="371" height="401" alt="Image" src="https://github.com/user-attachments/assets/0f1c5f77-c72e-4790-8a22-d9277cfce934" />
 - Нажмите на Импортировать конфиг <img width="147" height="173" alt="Image" src="https://github.com/user-attachments/assets/70f92a9e-85cb-4fe8-b5ed-b2cb6c6c9a3e" />
@@ -95,6 +100,16 @@ wget -O /etc/magitrickle/state/config.yaml "https://raw.githubusercontent.com/St
 <img width="327" height="1105" alt="Image" src="https://github.com/user-attachments/assets/3f6e50dc-5f97-4f6c-abbb-2e7369398324" />
 
 - Нажмите `Сохранить изменения` <img width="45" height="111" alt="Image" src="https://github.com/user-attachments/assets/510dce31-20aa-44a1-a92d-6ed2c18fc5e0" />
+
+---
+
+Cписок из **ItDog Allow Domains** для **MagiTrickle**:
+https://github.com/StressOzz/WARP_on_OpenWRT/blob/main/files/MagiTrickle/ItDogList.mtrickle
+
+Так же скрипт для создания этого списка из **Allow Domains**:
+```
+sh <(wget -O - https://raw.githubusercontent.com/StressOzz/WARP_on_OpenWRT/main/AllowDomain_to_MagiTrickle.sh)
+```
 
 ---
 
