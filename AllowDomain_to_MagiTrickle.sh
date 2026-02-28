@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-OUT="/root/ItDogList.mtrickle"
+OUT="/root/AllowDomainsList.mtrickle"
 WORK="/tmp/mihomo_groups.$$"
 mkdir -p "$WORK"
 trap 'rm -rf "$WORK"' EXIT
